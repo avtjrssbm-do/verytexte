@@ -2,7 +2,6 @@ import os
 from flask import Flask, request, jsonify, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import language_tool_python
 from docx import Document
 
 app = Flask(__name__)
@@ -13,7 +12,7 @@ app = Flask(__name__)
 DATABASE_TEXTS = []
 DATABASE_NAMES = []
 
-tool = language_tool_python.LanguageTool("ru")
+
 
 
 # =========================
@@ -124,27 +123,7 @@ def check_all():
     # =========================
     # GRAMMAR CHECK
     # =========================
-    matches = tool.check(text)
-
-    errors = []
-
-    for m in matches:
-        word = text[m.offset:m.offset + m.error_length]
-
-        # skip english words
-        if any(c.isascii() for c in word) and word.isalpha():
-            continue
-
-        # skip names
-        if word.istitle() and " " not in word:
-            continue
-
-        errors.append({
-            "message": m.message,
-            "error": word,
-            "suggestions": (m.replacements or [])[:5]
-        })
-
+   
     # =========================
     # RESPONSE
     # =========================
