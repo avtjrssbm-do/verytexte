@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VeriText</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="manifest" href="/static/manifest.json">
+
+<meta name="theme-color" content="#7c3aed">
+</head>
+
+<body>
+
+<div class="app">
+
+<main class="main">
+
+<div class="header">
+<h1>VeriText</h1>
+<p>Проверка уникальности и грамматики текста</p>
+</div>
+
+<!-- ЗАГРУЗКА В ОДНУ СТРОКУ -->
+<div class="upload-row">
+
+    <!-- БАЗА -->
+    <div class="panel">
+
+        <h3>
+            <i class="fa-solid fa-database"></i>
+            База документов
+        </h3>
+
+        <input type="file" id="dbFiles" multiple>
+
+        <button class="primary-btn" onclick="uploadDB()">
+            Загрузить базу
+        </button>
+
+    </div>
+
+    <!-- ФАЙЛ -->
+    <div class="panel">
+
+        <h3>
+            <i class="fa-solid fa-file-arrow-up"></i>
+            Файл для проверки
+        </h3>
+
+        <input type="file" id="checkFile">
+
+        <button class="primary-btn" onclick="uploadCheckFile()">
+            Загрузить файл
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ТЕКСТ -->
+
+<div class="panel">
+
+<h3>
+<i class="fa-solid fa-file-lines"></i>
+Текст документа
+</h3>
+
+<div id="editor" contenteditable="true"></div>
+
+</div>
+
+<!-- КНОПКА ПРОВЕРКИ -->
+
+<button
+class="check-btn"
+onclick="checkAll()">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+Проверить текст
+
+</button>
+
+<!-- КАРТОЧКИ РЕЗУЛЬТАТОВ -->
+
+<div class="stats-grid">
+
+<div class="card green">
+<div class="card-title">Уникальность</div>
+<div id="uniqValue" class="big-number">0%</div>
+</div>
+
+<div class="card red">
+<div class="card-title">Плагиат</div>
+<div id="plagValue" class="big-number">0%</div>
+</div>
+
+<div class="card blue">
+<div class="card-title">Ошибки</div>
+<div id="errorsCount" class="big-number">0</div>
+</div>
+
+<div class="card orange">
+<div class="card-title">Время проверки</div>
+<div id="checkTime" class="big-number">0с</div>
+</div>
+
+</div>
+
+<!-- СТАТИСТИКА -->
+
+<div class="panel">
+
+<h3>
+<i class="fa-solid fa-chart-column"></i>
+Статистика текста
+</h3>
+
+<div id="stats"></div>
+
+</div>
+
+<!-- СОВПАДЕНИЯ -->
+
+<div class="panel">
+
+<h3>
+<i class="fa-solid fa-copy"></i>
+Совпадения по базе
+</h3>
+
+<div id="plagiarism"></div>
+
+</div>
+
+<!-- ОШИБКИ -->
+
+<div class="panel">
+
+<h3>
+<i class="fa-solid fa-triangle-exclamation"></i>
+Список ошибок
+</h3>
+
+<div id="errorList"></div>
+
+</div>
+
+</main>
+
+</div>
+
+<script src="/static/app.js"></script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/static/sw.js')
+        .then(() => console.log("SW registered"));
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "VeriText",
+  "short_name": "VeriText",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f4ff",
+  "theme_color": "#7c3aed",
+  "description": "Проверка текста на уникальность и ошибки",
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
