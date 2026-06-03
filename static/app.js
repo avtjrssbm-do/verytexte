@@ -3,7 +3,7 @@ console.log("loaded");
 let errorsGlobal = [];
 
 // =======================
-// DB
+// Загрузка базы документов
 // =======================
 async function uploadDB() {
 
@@ -31,7 +31,7 @@ async function uploadDB() {
 }
 
 // =======================
-// FILE
+// Загрузка файла для проверки
 // =======================
 async function uploadCheckFile() {
 
@@ -53,17 +53,19 @@ async function uploadCheckFile() {
 
     let data = await res.json();
 
+    // Заполняем редактор текстом из загруженного файла
     document.getElementById("editor").innerText =
         data.text || "";
 }
 
 // =======================
-// CHECK
+// Полная проверка текста
 // =======================
 async function checkAll() {
 
     let start = performance.now();
 
+    // Получаем текст из редактора
     let text =
         document.getElementById("editor").innerText;
 
@@ -85,7 +87,7 @@ async function checkAll() {
     let end = performance.now();
 
     // =======================
-    // CARDS
+    // Обновление карточек статистики
     // =======================
 
     document.getElementById("uniqValue").innerText =
@@ -101,7 +103,7 @@ async function checkAll() {
         ((end - start) / 1000).toFixed(2) + "с";
 
     // =======================
-    // STATS
+    // Вывод общей статистики текста
     // =======================
 
     document.getElementById("stats").innerHTML = `
@@ -122,7 +124,7 @@ async function checkAll() {
     `;
 
     // =======================
-    // PLAGIARISM
+    // Отображение совпадений с базой
     // =======================
 
     let plagiarismHTML = "";
@@ -149,7 +151,7 @@ async function checkAll() {
         plagiarismHTML;
 
     // =======================
-    // ERRORS
+    // Сохранение и отображение ошибок
     // =======================
 
     errorsGlobal = data.errors || [];
@@ -159,7 +161,7 @@ async function checkAll() {
 }
 
 // =======================
-// ERROR LIST
+// Формирование списка ошибок
 // =======================
 function renderErrors() {
 
@@ -181,6 +183,7 @@ function renderErrors() {
 
         let suggestionsHTML = "";
 
+        // Вывод вариантов исправления
         if (e.suggestions && e.suggestions.length > 0) {
             suggestionsHTML = `
                 <div style="margin-top:8px; font-size:13px;">
@@ -217,6 +220,7 @@ function renderErrors() {
             </div>
         `;
 
+        // Переход к ошибке при клике
         div.onclick = () => goToError(i);
 
         box.appendChild(div);
@@ -224,7 +228,7 @@ function renderErrors() {
 }
 
 // =======================
-// HIGHLIGHT
+// Подсветка ошибок в тексте
 // =======================
 function highlightErrors(active = -1) {
 
@@ -237,6 +241,7 @@ function highlightErrors(active = -1) {
 
         if (!e.error) return;
 
+        // Выделяем активную ошибку отдельно
         let cls = (i === active)
             ? "error active"
             : "error";
@@ -251,14 +256,16 @@ function highlightErrors(active = -1) {
 }
 
 // =======================
-// GO TO ERROR
+// Переход к выбранной ошибке
 // =======================
 function goToError(i) {
 
+    // Подсвечиваем выбранную ошибку
     highlightErrors(i);
 
     let el = document.querySelector(`[data-id="${i}"]`);
 
+    // Плавная прокрутка к ошибке
     if (el) {
         el.scrollIntoView({
             behavior: "smooth",
